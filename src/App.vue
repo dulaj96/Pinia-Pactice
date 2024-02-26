@@ -8,7 +8,7 @@
     </header>
 
     <!-- new task form -->
-    <div class="new-task-">
+    <div class="new-task-form">
       <TaskForm />
     </div>
 
@@ -21,7 +21,7 @@
     <!-- task list -->
     <div class="task-list" v-if="filter === 'all'">
       <p>You have to {{ taskStore.totalCount }} tasks left to do</p>
-      <div v-for="task in taskStore.tasks" :key="task.id">
+      <div v-for="task in taskStore.tasks.user" :key="task.id">
         <TaskDetails :task="task"/>
       </div>
     </div>
