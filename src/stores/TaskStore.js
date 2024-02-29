@@ -92,7 +92,7 @@ export const useTaskStore = defineStore('taskStore',() => {
     async function fetchTask() {
         try {
             const response = await axios.get('https://jsonplaceholder.typicode.com/todos');
-            tasks.value.user = response.data.slice(0, 5).map(task => ({
+            tasks.value.user = response.data.slice(0, 4).map(task => ({
                 id: task.id,
                 title: task.title,
                 isFav: task.completed
