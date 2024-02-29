@@ -51,18 +51,32 @@ import axios from 'axios';
 export const useTaskStore = defineStore('taskStore',() => {
     const tasks = ref({
        user: [
-        {
-            id: 1,
-            title: 'My name is Dulaj',
-            isFav: true
-        },
-        {
-            id: 2,
-            title: 'I love you',
-            isFav: false
-        }
+        // {
+        //     id: 1,
+        //     title: 'My name is Dulaj',
+        //     isFav: true
+        // },
+        // {
+        //     id: 2,
+        //     title: 'I love you',
+        //     isFav: false
+        // }
        ]
     })
+    // const tasks = ref([])
+
+    // const fetchTask = async () => {
+    //     try {
+    //         const response = await axios.get('https://jsonplaceholder.typicode.com/todos')
+    //         tasks.value = response.data.slice(0, 2).map(task => ({
+    //             id: task.id,
+    //             title: task.title,
+    //             isFav: task.completed
+    //         }))
+    //     } catch(err) {
+    //         console.log('Error fetching tasks: ', err)
+    //     }
+    // }
 
     const favs = computed(() => {
         return tasks.value.user.filter(t => t.isFav)
@@ -89,6 +103,19 @@ export const useTaskStore = defineStore('taskStore',() => {
         task.isFav = !task.isFav
     }
 
+    async function fetchTask() {
+        try {
+            const response = await axios.get('https://jsonplaceholder.typicode.com/todos');
+            tasks.value.user = response.data.slice(0, 4).map(task => ({
+                id: task.id,
+                title: task.title,
+                isFav: task.completed
+            }));
+        } catch(err) {
+            console.log('Error fetching tasks: ', err);
+        }
+    }
+
     return{
         tasks,
         favs,
@@ -96,6 +123,7 @@ export const useTaskStore = defineStore('taskStore',() => {
         totalCount,
         addTask,
         deleteTask,
-        toggleFav
+        toggleFav,
+        fetchTask
     }
 })

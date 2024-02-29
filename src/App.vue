@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import TaskDetails from './components/TaskDetails.vue';
 import TaskForm from './components/TaskForm.vue';
 import { useTaskStore } from './stores/TaskStore';
@@ -52,6 +52,10 @@ import { useTaskStore } from './stores/TaskStore';
       const taskStore = useTaskStore();
 
       const filter = ref('all')
+
+    onMounted(() => {
+      taskStore.fetchTask(); // Fetch tasks when the component is mounted
+    });
 
       return{
         taskStore,
